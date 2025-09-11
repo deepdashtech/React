@@ -1,0 +1,377 @@
+.borderDarkBlue{
+    border: solid #0e345a;
+}
+
+.borderRadius{
+    border-radius: 5px;
+}
+
+.backDarkBlue{
+    background-color: #0e345a;
+}
+
+.colorDarkBlue{
+    color: #0e345a;
+}
+
+.textDarkBlue{
+    color: #0e345a;
+}
+
+.textDarkBlue:hover{
+    background-color: #0e345a;
+    background-size: cover;
+    color: white;
+    transition: 0.4s;
+}
+
+.removelink{
+    text-decoration: none;
+    /* color: #0e345a; */
+}
+
+.removelink:host{
+    color: #a9bfd6;
+}
+
+.backgroundimage{
+    background-image: url(assets/homebg.avif);
+    height:max-content;
+    width: fit-content;
+}
+
+.picfont{
+    color:#0e345a;
+    font-family: Arial;
+}
+
+.loginBeside{
+    background: #0e345a;
+    color: white;
+    font-style: italic;
+}
+
+.loginBeside:hover{
+    background-color: white;
+    color: #0e345a;
+    transition: 0.4s;
+    
+}
+
+.TimesNewRomanFont{
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.LucidaSansFont{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.centuryGothicFont{
+    font-family: Century 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.lucidafont{
+    font-family: lucida;
+}
+
+.DisplayGrid4{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    gap: 15px;
+
+}
+
+.btndesign{
+    /* border-radius: none; */
+}
+
+.custcard:hover .btndesign{
+    background: #000;
+    color: white;
+}
+
+.profileCard{
+    border-radius: 25px;
+    border: 2px solid #0e345a;
+}
+
+.profile-title{
+    background-color: #0e345a;
+    color: white;
+    width: min-content;
+
+    border-top-left-radius:22px;
+    border-top-right-radius: 22px;
+    
+}
+
+.usercard{
+    background-color: #0e345a;
+}
+
+.usercard-content{
+    background-color: white;
+    /* width: ; */
+    /* margin: 20px; */
+    border-top-left-radius: 50px;
+    padding: 30px;
+}
+
+.editcard{
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    background-color: #0e345a;
+    color: white;
+}
+
+.edit-content{
+    width: 100%;
+    background: white;
+}
+
+.editbtn{
+    background-color: #0e345a;
+    color: white;    
+}
+
+.editbtn:hover{
+    background-color: #a9bfd6;
+}
+
+.book-details-page {
+  min-height: 80vh;
+  background: #f1f6fa;
+}
+
+.book-details-img {
+  width: 350px;
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px #00000025;
+}
+
+.book-details-title {
+  font-size: 2.5rem;
+  color: #1d3557;
+  letter-spacing: 1px;
+}
+
+.book-details-author {
+  color: #336;
+}
+
+.book-details-isbn {
+  font-size: 1.1rem;
+}
+
+.badge {
+  font-size: 1.1rem;
+  font-weight: 500;
+  border-radius: 8px;
+}
+
+.user-profile-page {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.user-profile-header {
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 10px;
+}
+
+.user-profile-title {
+  font-family: 'Georgia', serif;
+  font-size: 2.2rem;
+  color: #0056b3;
+  font-weight: bold;
+  margin: 0;
+}
+
+.user-profile-info {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
+}
+
+.user-profile-bg {
+  background-color: #f8f9fa;
+}
+
+.user-profile-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.user-profile-row:last-child {
+  border-bottom: none;
+}
+
+.user-profile-label {
+  font-weight: 600;
+  color: #333;
+}
+
+.user-profile-value {
+  color: #555;
+}
+
+
+.editbook-container {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgb(0 0 0 / 0.1);
+}
+
+.editbook-title {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #2a3f54;
+  font-weight: 700;
+}
+
+.editbook-form {
+  width: 100%;
+}
+
+.editbook-input {
+  height: 48px;
+  font-size: 1.1rem;
+  padding: 0 14px;
+  border: 1.5px solid #ced4da;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+
+.editbook-input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 6px #007bffaa;
+}
+
+.editbook-btn {
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 10px 36px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.editbook-btn:hover {
+  background-color: #0056b3;
+  color: white;
+}
+
+
+
+.addbook-container {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgb(0 0 0 / 0.1);
+  padding: 3rem 2rem;
+}
+
+.addbook-title {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #2a3f54;
+  font-weight: 700;
+}
+
+.addbook-form {
+  width: 100%;
+}
+
+.addbook-input {
+  height: 48px;
+  font-size: 1.1rem;
+  padding: 0 14px;
+  border: 1.5px solid #ced4da;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+
+.addbook-input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 6px #007bffaa;
+}
+
+.addbook-btn {
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 10px 36px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.addbook-btn:hover {
+  background-color: #0056b3;
+  color: white;
+}
+
+
+.profile-page-container {
+  max-width: 480px;
+  margin: 3rem auto;
+  padding: 2rem 2.5rem;
+  background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+  border-radius: 20px;
+  box-shadow: 0 9px 20px rgba(0,0,0,0.08);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.profile-header {
+  text-align: center;
+  border-bottom: 2px solid #6c7a89;
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+
+.profile-name {
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: #102a43;
+  margin-bottom: 0.3rem;
+}
+
+.profile-type {
+  font-size: 1.3rem;
+  font-style: italic;
+  color: #486581;
+}
+
+.profile-stats-section {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.stat-item {
+  background: #ffffffaa;
+  padding: 1.2rem 1.8rem;
+  border-radius: 16px;
+  flex: 1;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.04);
+  text-align: center;
+  transition: background 0.3s ease;
+}
+
+.stat-item:hover {
+  background: #cbd5e0;
+}
+
+.stat-label {
+  display: block;
+  font-weight: 600;
+  color: #334e68;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.stat-value {
+  font-size: 1.9rem;
+  color: #0f172a;
+  font-weight: 700;
+}
