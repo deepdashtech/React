@@ -35,9 +35,13 @@ export const SignUp = () => {
     if (response.ok) {
       toast("Signup Successfully");
       login();
-      localStorage.setItem("username", data.user.userName);
-      localStorage.setItem("userid", data.user.userId);
-      localStorage.setItem("usertype", data.user.usertype);
+      console.log(response.json);
+      
+      console.log(data);
+      
+      localStorage.setItem("username", data.data.userName);
+      localStorage.setItem("userid", data.data.userId);
+      localStorage.setItem("usertype", data.data.userType);
       navigate("/home");
     }
     else {

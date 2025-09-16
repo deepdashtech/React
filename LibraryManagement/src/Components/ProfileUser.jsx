@@ -1,5 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { toast } from 'react-toastify';
+import { timeAgo } from '../utility/timeAgo';
+import daysRemaining from '../utility/daysRemaining';
 
 
 
@@ -10,6 +13,11 @@ export const ProfileUser = () => {
     userType: "",
     booksBorrowed: 0,
   });
+
+  let [historydata,setHistoryData]=useState([]);
+
+  let userId = Number(localStorage.getItem("userid"));
+
 
   React.useEffect(() => {
     let username = localStorage.getItem("username");
@@ -22,13 +30,28 @@ export const ProfileUser = () => {
           userType: response.data.userType,
           booksBorrowed: response.data.booksBorrowed,
         });
+
+         axios.get("http://localhost:8181/api/borrow/history/" + userId)
+          .then((borrowedResponse) => {
+            console.log(borrowedResponse.data);
+            setHistoryData(borrowedResponse.data);
+            console.log(historydata);
+            
+          })
+          .catch(()=>alert("Not Found"));
       })
       .catch((err) => {
         // handle error if needed
       });
   }, []);
 
+  function historyHandle()
+  {
+   
+  }
+
   return (
+    <>
     <div className="profile-page-container">
       <header className="profile-header">
         <h1 className="profile-name">{userdata.userName}</h1>
@@ -42,9 +65,46 @@ export const ProfileUser = () => {
         </div>
         <div className="stat-item">
           <span className="stat-label">Books Borrowed</span>
-          <span className="stat-value">{userdata.booksBorrowed}</span>
+          <span className="stat-value" onClick={historyHandle}>{userdata.booksBorrowed}</span>
         </div>
       </section>
     </div>
+      <table className='table table-hover table-striped w-50 mx-auto container'>
+          <thead>
+            <tr>
+              <td>Index</td>
+              <td>Title</td>
+              <td>Author</td>
+              <td>Issue Date</td>
+              <td>Return Date</td>
+              <td>Due Date</td>
+            </tr>
+          </thead>
+          <tbody>
+            {/* <tr> */}
+              {
+                historydata.map((element,idx=1)=>{
+                  return(
+                    <tr key={idx}>
+                      <td>{idx+1}</td>
+                      <td>{element.book.title}</td>
+                      <td>{element.book.author}</td>
+                      <td>{timeAgo(element.issueDate)}</td>
+                     <td>
+                        {element.returnDate == null 
+                          ? <span style={{ color: 'red' }}>Not Returned</span> 
+                          : daysRemaining(element.returnDate)
+                        }
+                      </td>
+                      <td>{daysRemaining(element.dueDate)}</td>
+                      {/* <td>{element.book.title}</td> */}
+                    </tr>
+                  )
+                })
+              }
+            {/* </tr> */}
+          </tbody>
+      </table>
+              </>
   );
 };

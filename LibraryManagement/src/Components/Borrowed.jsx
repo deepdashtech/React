@@ -3,29 +3,36 @@ import React, { useEffect, useState } from 'react';
 import book2pic from '../assets/book3.avif';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
+import { timeAgo } from '../utility/timeAgo';
+import daysRemaining from '../utility/daysRemaining';
+
 
 export const Borrowed = () => {
   let userId = Number(localStorage.getItem("userid"));
-  let [books, setBooks] = useState([]);
+  let [Borrowedbooks, setBooks] = useState([]);
 
   let navigate=useNavigate();
 
   useEffect(() => {
     axios.get("http://localhost:8181/api/borrow/" + userId)
-      .then((response) => setBooks(response.data))
+      .then((response) => {
+        setBooks(response.data)
+        console.log( "response data");
+        
+        console.log(response.data);
+        
+      })
       .catch((err) => alert("not found"))
+
+      // console.log(books);
+      
   }, []);
 
   async function ReturnBookHandle(e, bookId) {
     e.stopPropagation();
     if (confirm("Are you really want to return?")) {
       const response = await fetch(
-        `http://localhost:8181/api/borrow/delete?userId=${userId}&bookId=${bookId}`,
-        {
-          method: "DELETE",
-          headers: { "Content-Type": "application/json" }
-        }
-      );
+        `http://localhost:8181/api/borrow/return?userId=${userId}&bookId=${bookId}`);
       if (response.ok) {
         // alert("Deleted successfully");
         toast("Returned")
@@ -66,12 +73,14 @@ export const Borrowed = () => {
         </div>
         <div className='DisplayGrid4 gap-5'>
           {
-            books.map((book) => (
-              <div className='shadow card w-100 d-flex flex-column justify-content-center align-items-center custcard' key={book.bookId} onClick={(e) => showBookHandle(e, book.bookId)}>
+            Borrowedbooks.map((book) => (
+              <div className='shadow card w-100 d-flex flex-column justify-content-center align-items-center custcard' key={book.book.bookId} onClick={(e) => showBookHandle(e, book.book.bookId)}>
                 <img src={book2pic} height={"200px"} alt="Book cover" />
-                <h1 className='fs-4 my-2'>{book.title}</h1>
-                <p className='fst-italic text-secondary mb-3'>ISBN: {book.isbn}</p>
-                <button className='btn rounded rounded-0 w-100 btndesign' onClick={(e) => ReturnBookHandle(e, book.bookId)}>Return</button>
+                <h1 className='fs-4 my-2'>{book.book.title}</h1>
+                <p className='fst-italic text-secondary mb-3'>ISBN: {book.book.isbn}</p>
+                <p className='fst-italic text-secondary mb-3'>Borrowed : {timeAgo(book.issueDate)}</p>
+                <p className='fst-italic text-secondary mb-3'>Due Date : {daysRemaining(book.dueDate)}</p>
+                <button className='btn rounded rounded-0 w-100 btndesign' onClick={(e) => ReturnBookHandle(e, book.book.bookId)}>Return</button>
               </div>
             ))
           }

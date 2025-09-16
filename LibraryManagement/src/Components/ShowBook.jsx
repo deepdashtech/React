@@ -2,12 +2,21 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import book2pic from '../assets/book3.avif';
+import useTimeAgo from '../Hooks/useTimeAgo';
+import { timeAgo } from '../utility/timeAgo';
+
 
 
 export const ShowBook = () => {
+  
+  // let {result}=useTimeAgo();
+  
+  
   let { id } = useParams();
 
-  let [data, updateData] = useState({ title:"", isbn:"", numberOfCopies:0, author:"",createdOn:""});
+
+
+  let [data, updateData] = useState({ title:"", isbn:"", numberOfCopies:0, author:"",createdOn:"",totalCopies:0});
   let [error, setError] = useState("");
 
   useEffect(() => {
@@ -20,7 +29,8 @@ export const ShowBook = () => {
           isbn: response.data.isbn,
           numberOfCopies: response.data.numberOfCopies,
           author: response.data.author,
-          createdOn: timeAgo(response.data.createdOn)
+          createdOn: timeAgo(response.data.createdOn),
+          totalCopies:response.data.totalCopies
         });
       })
       .catch((err) => {
@@ -30,27 +40,7 @@ export const ShowBook = () => {
 
 
 
-  function timeAgo(dateString) {
-
-      if (!dateString) {
-    return "not added";
-  }
-
-  const date = new Date(dateString);
-  const now = new Date();
-
-  const secondsAgo = Math.floor((now - date) / 1000);
-  if (secondsAgo < 60) return secondsAgo + " seconds ago";
-
-  const minutesAgo = Math.floor(secondsAgo / 60);
-  if (minutesAgo < 60) return minutesAgo + " minutes ago";
-
-  const hoursAgo = Math.floor(minutesAgo / 60);
-  if (hoursAgo < 24) return hoursAgo + " hours ago";
-
-  const daysAgo = Math.floor(hoursAgo / 24);
-  return daysAgo + " days ago";
-}
+  
 
   return (
     <div className="book-details-page mt-5 py-5 mx-auto">
@@ -68,6 +58,7 @@ export const ShowBook = () => {
       <br></br>
       <p className="book-details-isbn text-muted mb-4">ISBN: <b>{data.isbn}</b></p>
       <p className='book-details-isbn text-muted mb-4'>Added: {data.createdOn}</p>
+      <p className='book-details-isbn text-muted mb-4'>Total Copies: {data.totalCopies}</p>
       <div className="mb-4">
         {data.numberOfCopies > 0 ? (
           <span className="badge bg-success fs-5 px-4 py-2">Copies Available: {data.numberOfCopies}</span>

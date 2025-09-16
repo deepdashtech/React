@@ -31,15 +31,15 @@ export const Login = () => {
         login();
         // console.log(data.user.userId);
         
-
-        localStorage.setItem("username",data.user.userName);
-        localStorage.setItem("userid",data.user.userId);
-        localStorage.setItem("usertype",data.user.userType);
+        console.log(data);
         
+        localStorage.setItem("username",data.data.userName);
+        localStorage.setItem("userid",data.data.userId);
+        localStorage.setItem("usertype",data.data.userType);
         navigate("/home");
     }
     else{
-        toast("Wrong");
+        toast(data.message);
     }
   }
   

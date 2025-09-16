@@ -27,8 +27,12 @@ export const BookList = () => {
               ...book,
               isBorrowed: borrowed.some(borrowedBook => borrowedBook.bookId === book.bookId)
             }));
+            console.log(booksWithBorrowFlag);
+            
             setBooks((books)=>books=booksWithBorrowFlag);
+            // console.log(books);
             console.log(books);
+            
             
             setBorrowedBooks(borrowed);
           })
@@ -65,7 +69,10 @@ export const BookList = () => {
 
   async function borrowBookHandle(e, bookId) {
     e.stopPropagation();
-
+      console.log("BooID: "+bookId);
+      console.log("UserID: "+userId);
+      
+      
     const response = await fetch("http://localhost:8181/api/borrow/bookborrow", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
