@@ -5,6 +5,8 @@ import book2pic from '../assets/book3.avif';
 import "../App.css"
 import { toast, ToastContainer } from 'react-toastify';
 
+import defaultimg from '../assets/default-book.png';
+
 
 
 export const BookList = () => {
@@ -133,7 +135,7 @@ export const BookList = () => {
           {
             books.map((book) => (
               <div className='shadow card w-100 d-flex flex-column justify-content-center align-items-center custcard'  key={book.bookId} onClick={(e) => showBookHandle(e, book.bookId)}>
-                <img src={book2pic} height={"200px"} alt="Book" />
+                <img src={book.imagePath?`http://localhost:8181${book.imagePath}`:defaultimg} className='w-100 p-3' height={"200px"} alt={book.title} />
                 <p className='my-2 LucidaSansFont text-secondary fs-4'>{book.title}</p>
 
                 {userType === "admin" ? (

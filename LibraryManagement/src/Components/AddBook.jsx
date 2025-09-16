@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
@@ -9,21 +10,38 @@ export const AddBook = () => {
     let [isbn,setisbn]=useState("");
     let [numberOfCopies,setcopies]=useState(); 
     let [author,setauthor]=useState("");
+    let [imagepath,setImagePath]=useState(null);
 
      const hadleAddBook=async(e)=>{
-   const response=await fetch("http://localhost:8181/api/books/add",{
-        method:"POST",
-        headers:{"Content-Type": "application/json" },
-        body:JSON.stringify({title,isbn,numberOfCopies,author}),
-    });
-  
-    if (response.ok) {
-        alert("added Successfully");
-        navigate("/books")
+
+      const bookDto={
+        title:title,
+        isbn:isbn,
+        numberOfCopies:numberOfCopies,
+        author:author
+      }
+
+      const formData=new FormData();
+      formData.append("book",new Blob([JSON.stringify(bookDto)],{type:"application/json"})
+    );
+    formData.append("image",imagepath);
+    
+    
+    try{
+      await axios.post("http://localhost:8181/api/books/add",formData);
+      
+      alert("added Successfully");
+      navigate("/books") 
+  }
+    catch(err)
+    {
+      alert("Failed");
+    }  
     }
-    else{
-        alert("Failed");
-    }
+
+    function handleFileChange(e)
+    {
+      setImagePath(e.target.files[0]);
     }
   
   
@@ -64,6 +82,10 @@ export const AddBook = () => {
         value={author}
         onChange={(e) => setauthor(e.target.value)}
       />
+
+      <input type='file' accept='image/*' onChange={handleFileChange} required></input>
+
+
 
       <button className="addbook-btn btn btn-primary align-self-center px-5" onClick={hadleAddBook}>
         Add Book

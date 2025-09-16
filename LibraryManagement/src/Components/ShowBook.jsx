@@ -6,6 +6,9 @@ import useTimeAgo from '../Hooks/useTimeAgo';
 import { timeAgo } from '../utility/timeAgo';
 
 
+import defaultimg from '../assets/default-book.png';
+
+
 
 export const ShowBook = () => {
   
@@ -16,7 +19,7 @@ export const ShowBook = () => {
 
 
 
-  let [data, updateData] = useState({ title:"", isbn:"", numberOfCopies:0, author:"",createdOn:"",totalCopies:0});
+  let [data, updateData] = useState({ title:"", isbn:"", numberOfCopies:0, author:"",createdOn:"",totalCopies:0,imagePath:""});
   let [error, setError] = useState("");
 
   useEffect(() => {
@@ -30,7 +33,8 @@ export const ShowBook = () => {
           numberOfCopies: response.data.numberOfCopies,
           author: response.data.author,
           createdOn: timeAgo(response.data.createdOn),
-          totalCopies:response.data.totalCopies
+          totalCopies:response.data.totalCopies,
+          imagePath:response.data.imagePath
         });
       })
       .catch((err) => {
@@ -47,7 +51,7 @@ export const ShowBook = () => {
   <div className="row justify-content-center align-items-center">
     <div className="col-md-4 d-flex justify-content-center align-items-start">
       <img
-        src={book2pic}
+        src={data.imagePath?`http://localhost:8181${data.imagePath}`:defaultimg}
         alt={data.title}
         className="book-details-img"
       />
