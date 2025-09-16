@@ -11,7 +11,7 @@ function useFetch(api)
 
     axios.get(api)
     .then((response)=>{
-        updateData(data=response.data);
+        updateData(data=response.data.data);
         
         setLoading(loading=false);
     })

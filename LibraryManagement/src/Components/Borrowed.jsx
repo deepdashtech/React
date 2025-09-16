@@ -17,7 +17,7 @@ export const Borrowed = () => {
   useEffect(() => {
     axios.get("http://localhost:8181/api/borrow/" + userId)
       .then((response) => {
-        setBooks(response.data)
+        setBooks(response.data.data)
         console.log( "response data");
         
         console.log(response.data);
@@ -38,7 +38,7 @@ export const Borrowed = () => {
         // alert("Deleted successfully");
         toast("Returned")
         axios.get(`http://localhost:8181/api/borrow/${userId}`)
-          .then((response) => setBooks(response.data))
+          .then((response) => setBooks(response.data.data))
           .catch(() => alert("Failed to refresh borrowed books"));
       } else if (response.status === 404) {
         alert("Record not found");

@@ -18,7 +18,7 @@ export const EditBook = () => {
 
         console.log(response.data);
         
-        updateData({title:response.data.title,isbn:response.data.isbn,numberOfCopies:response.data.numberOfCopies});
+        updateData({title:response.data.data.title,isbn:response.data.data.isbn,numberOfCopies:response.data.data.numberOfCopies});
     })
     .catch((err)=>{
         setError(error=err);

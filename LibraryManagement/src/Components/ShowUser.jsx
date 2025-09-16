@@ -10,10 +10,10 @@ export const ShowUser = () => {
     axios.get("http://localhost:8181/api/users/userid/" + id)
       .then((response) => {
         setuserdata({
-          userId: response.data.userId,
-          userName: response.data.userName,
-          userType: response.data.userType,
-          booksBorrowed: response.data.booksBorrowed
+          userId: response.data.data.userId,
+          userName: response.data.data.userName,
+          userType: response.data.data.userType,
+          booksBorrowed: response.data.data.booksBorrowed
         });
       })
       .catch((err) => {

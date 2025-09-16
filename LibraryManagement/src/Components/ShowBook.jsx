@@ -25,16 +25,16 @@ export const ShowBook = () => {
   useEffect(() => {
     axios.get("http://localhost:8181/api/books/" + id)
       .then((response) => {
-        console.log(response.data);
+        console.log(response.data.data);
         
         updateData({
-          title: response.data.title,
-          isbn: response.data.isbn,
-          numberOfCopies: response.data.numberOfCopies,
-          author: response.data.author,
-          createdOn: timeAgo(response.data.createdOn),
-          totalCopies:response.data.totalCopies,
-          imagePath:response.data.imagePath
+          title: response.data.data.title,
+          isbn: response.data.data.isbn,
+          numberOfCopies: response.data.data.numberOfCopies,
+          author: response.data.data.author,
+          createdOn: timeAgo(response.data.data.createdOn),
+          totalCopies:response.data.data.totalCopies,
+          imagePath:response.data.data.imagePath
         });
       })
       .catch((err) => {

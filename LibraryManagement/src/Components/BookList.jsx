@@ -22,10 +22,12 @@ export const BookList = () => {
   const fetchBooksAndBorrowed = () => {
     axios.get("http://localhost:8181/api/books/all")
       .then((booksResponse) => {
+        console.log(booksResponse.data.data);
+        
         axios.get("http://localhost:8181/api/borrow/" + userId)
           .then((borrowedResponse) => {
-            const borrowed = borrowedResponse.data;
-            const booksWithBorrowFlag = booksResponse.data.map(book => ({
+            const borrowed = borrowedResponse.data.data;
+            const booksWithBorrowFlag = booksResponse.data.data.map(book => ({
               ...book,
               isBorrowed: borrowed.some(borrowedBook => borrowedBook.bookId === book.bookId)
             }));

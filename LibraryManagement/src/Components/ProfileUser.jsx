@@ -25,16 +25,16 @@ export const ProfileUser = () => {
       .get("http://localhost:8181/api/users/user/" + username)
       .then((response) => {
         setuserdata({
-          userId: response.data.userId,
-          userName: response.data.userName,
-          userType: response.data.userType,
-          booksBorrowed: response.data.booksBorrowed,
+          userId: response.data.data.userId,
+          userName: response.data.data.userName,
+          userType: response.data.data.userType,
+          booksBorrowed: response.data.data.booksBorrowed,
         });
 
          axios.get("http://localhost:8181/api/borrow/history/" + userId)
           .then((borrowedResponse) => {
             console.log(borrowedResponse.data);
-            setHistoryData(borrowedResponse.data);
+            setHistoryData(borrowedResponse.data.data);
             console.log(historydata);
             
           })
