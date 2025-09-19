@@ -19,7 +19,7 @@ export const ShowBook = () => {
 
 
 
-  let [data, updateData] = useState({ title:"", isbn:"", numberOfCopies:0, author:"",createdOn:"",totalCopies:0,imagePath:""});
+  let [data, updateData] = useState({ title:"", isbn:"", numberOfCopies:0, author:"",createdOn:"",totalCopies:0,imagePath:"",category:""});
   let [error, setError] = useState("");
 
   useEffect(() => {
@@ -34,7 +34,8 @@ export const ShowBook = () => {
           author: response.data.data.author,
           createdOn: timeAgo(response.data.data.createdOn),
           totalCopies:response.data.data.totalCopies,
-          imagePath:response.data.data.imagePath
+          imagePath:response.data.data.imagePath,
+          category:response.data.data.category
         });
       })
       .catch((err) => {
@@ -60,6 +61,7 @@ export const ShowBook = () => {
       <h1 className="book-details-title fw-bold text-uppercase mb-3">{data.title}</h1>
       <p className="book-details-author mb-2 fs-5"><i>By {data.author}</i></p>
       <br></br>
+      <p className='book-details-isbn text-muted mb-4'>Category: {data.category}</p>
       <p className="book-details-isbn text-muted mb-4">ISBN: <b>{data.isbn}</b></p>
       <p className='book-details-isbn text-muted mb-4'>Added: {data.createdOn}</p>
       <p className='book-details-isbn text-muted mb-4'>Total Copies: {data.totalCopies}</p>

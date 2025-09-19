@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { Categories } from '../utility/Categories';
+
 
 export const AddBook = () => {
   
@@ -8,9 +10,12 @@ export const AddBook = () => {
 
     let [title,settitle]=useState("");
     let [isbn,setisbn]=useState("");
+    let [category,setCategory]=useState("");
     let [numberOfCopies,setcopies]=useState(); 
     let [author,setauthor]=useState("");
     let [imagepath,setImagePath]=useState(null);
+
+    let bookCategories = Categories;
 
      const hadleAddBook=async(e)=>{
 
@@ -18,7 +23,8 @@ export const AddBook = () => {
         title:title,
         isbn:isbn,
         numberOfCopies:numberOfCopies,
-        author:author
+        author:author,
+        category:category
       }
 
       const formData=new FormData();
@@ -58,6 +64,16 @@ export const AddBook = () => {
         value={title}
         onChange={(e) => settitle(e.target.value)}
       />
+
+      <select value={category} className='form-control addbook-input' onChange={(e)=>setCategory(e.target.value)}>
+        {
+          bookCategories.map((cat)=>{
+            return(
+              <option key={cat} value={cat}>{cat}</option>
+            )
+          })
+        }
+      </select>
 
       <input
         type="text"

@@ -1,10 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { timeAgo } from '../utility/timeAgo';
 
 export const ShowUser = () => {
   let { id } = useParams();
-  let [userdata, setuserdata] = useState({ userId: 0, userName: "", userType: "", booksBorrowed: 0 });
+  let [userdata, setuserdata] = useState({ userId: 0, userName: "", userType: "", booksBorrowed: 0 ,createdOn:""});
 
   useEffect(() => {
     axios.get("http://localhost:8181/api/users/userid/" + id)
@@ -13,7 +14,8 @@ export const ShowUser = () => {
           userId: response.data.data.userId,
           userName: response.data.data.userName,
           userType: response.data.data.userType,
-          booksBorrowed: response.data.data.booksBorrowed
+          booksBorrowed: response.data.data.booksBorrowed,
+          createdOn:response.data.data.createdOn
         });
       })
       .catch((err) => {
@@ -41,6 +43,11 @@ export const ShowUser = () => {
       <div className="user-profile-row">
         <label className="user-profile-label">User Type:</label>
         <span className="user-profile-value">{userdata.userType}</span>
+      </div>
+
+      <div className="user-profile-row">
+        <label className="user-profile-label">Added:</label>
+        <span className="user-profile-value">{timeAgo(userdata.createdOn)}</span>
       </div>
 
       <div className="user-profile-row">

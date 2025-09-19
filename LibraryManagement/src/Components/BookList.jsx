@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 
 import defaultimg from '../assets/default-book.png';
+import { Categories } from '../utility/Categories';
 
 export const BookList = () => {
   let navigate = useNavigate();
@@ -11,38 +12,55 @@ export const BookList = () => {
   let userId = Number(localStorage.getItem("userid"));
 
   let [search, setSearch] = useState("");
+  let [category, setCategory] = useState("All");
+  let [allBooks, setAllBooks] = useState([]);
   let [books, setBooks] = useState([]);
   let [borrowedBooks, setBorrowedBooks] = useState([]);
 
-  // Fetch books and borrowed books data
-  const fetchBooksAndBorrowed = () => {
+  // Fetch books and borrowed books data (on mount)
+  useEffect(() => {
     axios.get("http://localhost:8181/api/books/all")
       .then((booksResponse) => {
         axios.get("http://localhost:8181/api/borrow/" + userId)
           .then((borrowedResponse) => {
             const borrowed = borrowedResponse.data.data;
-            // Map books with borrowed flag using nested book.bookId check
             const booksWithBorrowFlag = booksResponse.data.data.map(book => ({
               ...book,
               isBorrowed: borrowed.some(borrowedBook => borrowedBook.book.bookId === book.bookId)
             }));
-            setBooks(booksWithBorrowFlag);
+            setAllBooks(booksWithBorrowFlag); // keep the original
+            console.log(allBooks);
+            
             setBorrowedBooks(borrowed);
+            console.log(borrowedBooks);
+            
           })
           .catch(() => alert("Failed to fetch borrowed books"));
       })
       .catch(() => alert("Failed to fetch books"));
-  };
+  }, [userId]);
 
-  useEffect(() => {
-    if (search === "") {
-      fetchBooksAndBorrowed();
-    } else {
-      setBooks((books) =>
-        books.filter((e) => e.title && e.title.toLowerCase().includes(search.toLowerCase()))
-      );
-    }
-  }, [search]);
+  // Filter books whenever search/category/allBooks change
+ useEffect(() => {
+  let filtered = allBooks;
+  console.log("filtered");
+  
+  console.log(filtered);
+  
+  if (search !== "") {
+    filtered = filtered.filter((book) =>
+      
+      book.title && book.title.toLowerCase().includes(search.toLowerCase())
+    );
+  }
+
+  if ( category !== "All") {
+    filtered = filtered.filter((book) =>book.category == category);
+  }
+
+  setBooks(filtered);
+  console.log("Filtered books count:", filtered.length);
+}, [search, category, allBooks]);
 
   // Delete a book along with its image (handled backend)
   async function deleteHandle(e, id) {
@@ -55,7 +73,7 @@ export const BookList = () => {
 
       if (response.ok) {
         toast("Deleted Successfully");
-        setBooks((prev) => prev.filter((book) => book.bookId !== id));
+        setAllBooks((prev) => prev.filter((book) => book.bookId !== id));
       } else {
         toast("Failed to delete");
       }
@@ -74,7 +92,20 @@ export const BookList = () => {
 
     if (response.ok) {
       toast("Borrowed Successfully");
-      fetchBooksAndBorrowed();
+      // Refetch all books and borrowed list after borrowing
+      axios.get("http://localhost:8181/api/books/all")
+        .then((booksResponse) => {
+          axios.get("http://localhost:8181/api/borrow/" + userId)
+            .then((borrowedResponse) => {
+              const borrowed = borrowedResponse.data.data;
+              const booksWithBorrowFlag = booksResponse.data.data.map(book => ({
+                ...book,
+                isBorrowed: borrowed.some(borrowedBook => borrowedBook.book.bookId === book.bookId)
+              }));
+              setAllBooks(booksWithBorrowFlag);
+              setBorrowedBooks(borrowed);
+            });
+        });
     } else {
       toast("Failed to borrow book");
     }
@@ -121,6 +152,14 @@ export const BookList = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
+
+        <select value={category} onChange={(e) => setCategory(e.target.value)} className='addbook-input'>
+          <option value={"All"}>All</option>
+          {Categories.map((c) => (
+            <option key={c} value={c}>{c}</option>
+          ))}
+        </select>
+
         {userType === "admin" && (
           <button className='btn btn-outline-dark' onClick={AddBook}>
             + Add Book
@@ -130,7 +169,7 @@ export const BookList = () => {
 
       <div className='d-flex flex-column gap-5'>
         <div><b className='LucidaSansFont'>All Books</b></div>
-        <div className='DisplayGrid4 gap-5'>
+        <div className='DisplayGrid4 gap-5 '>
           {books.map((book) => (
             <div
               className='shadow card w-100 d-flex flex-column justify-content-center align-items-center custcard'

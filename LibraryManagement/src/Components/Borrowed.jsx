@@ -76,7 +76,7 @@ export const Borrowed = () => {
           {
             Borrowedbooks.map((book) => (
               <div className='shadow card w-100 d-flex flex-column justify-content-center align-items-center custcard' key={book.book.bookId} onClick={(e) => showBookHandle(e, book.book.bookId)}>
-                <img src={book.book.imagePath?`http://localhost:8181${book.book.imagePath}`:defaultimg} height={"200px"} alt="Book cover" />
+                <img src={book.book.imagePath?`http://localhost:8181${book.book.imagePath}`:defaultimg} height={"200px"} alt="Book cover" className='w-100 p-3' />
                 <h1 className='fs-4 my-2'>{book.book.title}</h1>
                 <p className='fst-italic text-secondary mb-3'>ISBN: {book.book.isbn}</p>
                 <p className='fst-italic text-secondary mb-3'>Borrowed : {timeAgo(book.issueDate)}</p>
