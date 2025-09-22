@@ -1,3 +1,5 @@
+import { timeAgo } from "./timeAgo";
+
 function daysRemaining(dateString) {
   if (!dateString) {
     return "date not provided";
@@ -10,6 +12,12 @@ function daysRemaining(dateString) {
 
   const today = new Date();
   const diffMs = targetDate.getTime() - today.getTime();
+
+  if(diffMs<0)
+  {
+    return timeAgo(dateString);
+  }
+
   const daysLeft = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
 
   if (daysLeft > 0 && daysLeft < 10) {

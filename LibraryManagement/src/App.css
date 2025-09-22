@@ -375,3 +375,10 @@
   color: #0f172a;
   font-weight: 700;
 }
+
+.my-medium-slider {
+ max-width: 600px;
+  margin: 0 auto;
+  padding: 0;
+}
+

@@ -1,6 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import Slider from 'react-slick';
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 
 export const Home = () => {
 
@@ -8,13 +11,24 @@ export const Home = () => {
 
   let username=localStorage.getItem("username");
   let [MostBorrowedBooks,setMostBorrowedBooks]=useState([]);
+  let [newBooks,setNewBooks]=useState([]);
+
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+  };
 
   useEffect(()=>{
     axios.get("http://localhost:8181/api/borrow/mostBorrowed")
     .then((response)=>{
         // console.log(response.data.data);
         setMostBorrowedBooks(response.data.data);
-        console.log(MostBorrowedBooks);
+        // console.log(MostBorrowedBooks);
                 
     })
 .catch(()=>{
@@ -22,6 +36,17 @@ export const Home = () => {
 })
 
 
+  axios.get("http://localhost:8181/api/books/newlyadded")
+  .then((response)=>{
+    console.log(response.data.data);
+    
+    setNewBooks(response.data.data);
+    console.log(newBooks);
+    
+  })
+  .catch(()=>{
+    console.log("Failed");
+  })
   },[]);
 
 
@@ -72,6 +97,42 @@ export const Home = () => {
         }
       </div>
       </div>
+        <div className=' py-5 w-100 bg-warning px-5 w-100'>
+  <div><h2 className='LucidaSansFont picfont mx-5'>Newly Added</h2></div>
+        <div className='container px-0 my-large-slider px-5'>
+  <Slider {...settings} >
+    {newBooks.map((item) => (
+      <div className='py-4' key={item.bookId} onClick={(e) => showBookHandle(e, item.bookId)}>
+        <img
+          src={`http://localhost:8181${item.imagePath}`}
+          alt={item.title}
+          style={{
+            height: "360px",
+            maxWidth: "480px",
+            objectFit: "contain",
+            margin: "0 auto",
+            display: "block",
+            borderRadius: "14px"
+          }}
+        />
+        <div
+          className='text-center mt-1 book-details-author fs-1'
+          style={{ fontSize: "2.5rem" }}
+        >
+          {item.title?.toUpperCase()}
+        </div>
+
+        <div className='book-details-author mb-2 fs-5 text-center'>
+          <i>By {item.author}</i>
+        </div>
+      </div>
+    ))}
+  </Slider>
+</div>
+
+
+</div>
+
 
 
     </div>

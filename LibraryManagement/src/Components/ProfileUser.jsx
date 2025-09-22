@@ -88,7 +88,7 @@ export const ProfileUser = () => {
               <td>
                 {element.returnDate == null
                   ? <span style={{ color: 'red' }}>Not Returned</span>
-                  : daysRemaining(element.returnDate)}
+                  : <span>{daysRemaining(element.returnDate)}</span>}
               </td>
               <td>{daysRemaining(element.dueDate)}</td>
             </tr>

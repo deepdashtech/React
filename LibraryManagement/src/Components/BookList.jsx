@@ -201,13 +201,13 @@ export const BookList = () => {
                   </button>
                 </div>
               ) : book.isBorrowed ? (
-                <i className='text-secondary my-2'>Already Borrowed</i>
+                <i className='text-secondary my-2'>Already Added</i>
               ) : book.numberOfCopies > 0 ? (
                 <button
                   className='btn rounded rounded-0 w-100 btndesign'
                   onClick={(e) => borrowBookHandle(e, book.bookId)}
                 >
-                  Borrow
+                  +Add 
                 </button>
               ) : (
                 <i className='text-danger my-2'>Out Of Stock</i>
