@@ -15,6 +15,8 @@ export const ProfileUser = () => {
   let [historydata, setHistoryData] = useState([]);
 
   let userId = Number(localStorage.getItem("userid"));
+  console.log(userId);
+  
 
   useEffect(() => {
     let username = localStorage.getItem("username");

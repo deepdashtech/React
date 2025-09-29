@@ -16,9 +16,14 @@ import { Borrowed } from './Components/Borrowed';
 import { ProfileUser } from './Components/ProfileUser';
 import { ShowUser } from './Components/ShowUser';
 import { NoFoundPage } from './Components/NoFoundPage';
+import { Document, Page } from 'react-pdf';
+import { pdfjs } from 'react-pdf';
+import { ShowPDF } from './Components/ShowPDF';
 
 
 function App() {
+
+  pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
   // let {data,loading,error}=useFetch("http://localhost:8181/api/users/xyz");
 
@@ -57,6 +62,7 @@ function App() {
               <Route path='/home' element={<Home></Home>}></Route>
               <Route path='/books' element={<BookList></BookList>}></Route>
               <Route path='/borrowed' element={<Borrowed></Borrowed>}></Route>
+              <Route path='/showpdf/:id' element={<ShowPDF></ShowPDF>}></Route>
               <Route path='/addbook' element={<AddBook></AddBook>}></Route>
               <Route path='/book/:id' element={<ShowBook></ShowBook>}></Route>
               <Route path='/edit/:id' element={<EditBook></EditBook>}></Route>

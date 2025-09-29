@@ -6,15 +6,16 @@ import { Categories } from '../utility/Categories';
 
 export const AddBook = () => {
   
-    let navigate=useNavigate();
-
-    let [title,settitle]=useState("");
-    let [isbn,setisbn]=useState("");
-    let [category,setCategory]=useState("");
-    let [numberOfCopies,setcopies]=useState(); 
-    let [author,setauthor]=useState("");
-    let [imagepath,setImagePath]=useState(null);
-
+  let navigate=useNavigate();
+  
+  let [title,settitle]=useState("");
+  let [isbn,setisbn]=useState("");
+  let [category,setCategory]=useState("");
+  let [numberOfCopies,setcopies]=useState(''); 
+  let [author,setauthor]=useState("");
+  let [imagepath,setImagePath]=useState(null);
+  let [pdfFile, setPdfFile] = useState();
+  
     let bookCategories = Categories;
 
      const hadleAddBook=async(e)=>{
@@ -31,13 +32,17 @@ export const AddBook = () => {
       formData.append("book",new Blob([JSON.stringify(bookDto)],{type:"application/json"})
     );
     formData.append("image",imagepath);
+    formData.append("pdf", pdfFile);
     
     
     try{
-      await axios.post("http://localhost:8181/api/books/add",formData);
-      
-      alert("added Successfully");
-      navigate("/books") 
+      await axios.post("http://localhost:8181/api/books/add",formData)
+      .then((res)=>{
+        console.log(res);
+      })
+      .catch((e)=>{
+        console.log(e);
+      });
   }
     catch(err)
     {
@@ -48,6 +53,10 @@ export const AddBook = () => {
     function handleFileChange(e)
     {
       setImagePath(e.target.files[0]);
+    }
+
+    function handlePdfChange(e) {
+      setPdfFile(e.target.files[0]);
     }
   
   
@@ -101,7 +110,7 @@ export const AddBook = () => {
 
       <input type='file' accept='image/*' onChange={handleFileChange} required></input>
 
-
+      <input type='file' accept='application/pdf' onChange={handlePdfChange} required />
 
       <button className="addbook-btn btn btn-primary align-self-center px-5" onClick={hadleAddBook}>
         Add Book
