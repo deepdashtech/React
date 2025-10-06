@@ -25,7 +25,8 @@ export const AddBook = () => {
         isbn:isbn,
         numberOfCopies:numberOfCopies,
         author:author,
-        category:category
+        category:category,
+        userId:localStorage.getItem("userid")
       }
 
       const formData=new FormData();
@@ -39,6 +40,12 @@ export const AddBook = () => {
       await axios.post("http://localhost:8181/api/books/add",formData)
       .then((res)=>{
         console.log(res);
+        if (error.response) {
+            console.error(error.response.data);
+            // Can also check error.response.status for 500
+          } else {
+            console.error(error.message);
+          }
       })
       .catch((e)=>{
         console.log(e);
@@ -48,6 +55,9 @@ export const AddBook = () => {
     {
       alert("Failed");
     }  
+    finally{
+      navigate("/books");
+    }
     }
 
     function handleFileChange(e)

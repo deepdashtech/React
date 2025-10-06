@@ -12,9 +12,12 @@ export const EditBook = () => {
     isbn: "",
     numberOfCopies: 0,
     author: "",
-    imagePath: ""
+    userId:localStorage.getItem("userid"),
+    imagePath: "",
   })
 
+  console.log(localStorage.getItem("username"));
+   localStorage.getItem("username");
   // State for selected new image file and preview URL
   let [selectedFile, setSelectedFile] = useState(null)
   let [previewUrl, setPreviewUrl] = useState("")
@@ -30,6 +33,7 @@ export const EditBook = () => {
           isbn: book.isbn,
           numberOfCopies: book.numberOfCopies,
           author: book.author,
+          userId:localStorage.getItem("userid"),
           imagePath: book.imagePath
         });
       })

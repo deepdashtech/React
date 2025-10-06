@@ -35,7 +35,7 @@ export const Navbar = () => {
     }
 
     let usertype=localStorage.getItem("usertype").toLowerCase();
-    console.log(usertype);
+    // console.log(usertype);
     
 
   return (
